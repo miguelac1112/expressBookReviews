@@ -21,34 +21,58 @@ public_users.post("/register", (req,res) => {
 });
 
 // Get the book list available in the shop
-public_users.get('/',function (req, res) {
-  res.send(JSON.stringify(books,null,4));
+public_users.get('/', function (req, res) {
+  new Promise((resolve, reject) => {
+    res.send(JSON.stringify(books,null,4));
+  }).then((successMessage) => {
+    res.send(successMessage);
+  }).catch((error) => {
+    res.send(error);
+  });
 });
 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
   let isbn = req.params.isbn;
-  res.send(books[isbn])
+  new Promise((resolve, reject) => {
+    res.send(books[isbn])
+  }).then((successMessage) => {
+    res.send(successMessage);
+  }).catch((error) => {
+    res.send(error);
+  });
  });
   
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
   let parameter = req.params.author;
-  for (const key in books) {
-    if (books[key].author === parameter) {
-      res.send(`Book ${key} - Title: ${books[key].title}`);
+  new Promise((resolve, reject) => {
+    for (const key in books) {
+      if (books[key].author === parameter) {
+        res.send(`Book ${key} - Title: ${books[key].title}`);
+      }
     }
-  }
+  }).then((successMessage) => {
+    res.send(successMessage);
+  }).catch((error) => {
+    res.send(error);
+  });
 });
 
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
   let parameter = req.params.title;
-  for (const key in books) {
-    if (books[key].title === parameter) {
-      res.send(`Book ${key} - Title: ${books[key].title} - Author: ${books[key].author}`);
+  new Promise((resolve, reject) => {
+    for (const key in books) {
+      if (books[key].title === parameter) {
+        res.send(`Book ${key} - Title: ${books[key].title} - Author: ${books[key].author}`);
+      }
     }
-  }
+  }).then((successMessage) => {
+    res.send(successMessage);
+  }).catch((error) => {
+    res.send(error);
+  });
 });
 
 //  Get book review
